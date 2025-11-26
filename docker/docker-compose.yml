@@ -1,0 +1,39 @@
+services:
+  node1:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: kv_node1
+    environment:
+      NODE_ID: "node1"
+      ROLE: "leader"
+      PORT: "8000"
+      PEERS: "http://node2:8001,http://node3:8002"
+    ports:
+      - "8000:8000"
+
+  node2:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: kv_node2
+    environment:
+      NODE_ID: "node2"
+      ROLE: "follower"
+      PORT: "8001"
+      PEERS: ""
+    ports:
+      - "8001:8001"
+
+  node3:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: kv_node3
+    environment:
+      NODE_ID: "node3"
+      ROLE: "follower"
+      PORT: "8002"
+      PEERS: ""
+    ports:
+      - "8002:8002"
